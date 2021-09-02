@@ -1,39 +1,39 @@
-var miaov = {};
+var moveZ = {};
 
-miaov.timeScroll = null;  //挂载整屏切换动画的实例
+moveZ.timeScroll = null;  //挂载整屏切换动画的实例
 
-miaov.currentStep = "step1";
+moveZ.currentStep = "step1";
 
-miaov.init = function(){
+moveZ.init = function(){
 
-	miaov.resize(); //设置每一屏的高度和top值
+	moveZ.resize(); //设置每一屏的高度和top值
 
-	miaov.events(); //配置事件
+	moveZ.events(); //配置事件
 
-	miaov.configIntAnimate();//配置导航条的动画
+	moveZ.configIntAnimate();//配置导航条的动画
 
-	miaov.button3D(".start",".state1",".state2",0.3);
-	miaov.button3D(".button1",".state1",".state2",0.3);
-	miaov.button3D(".button2",".state1",".state2",0.3);
+	moveZ.button3D(".start",".state1",".state2",0.3);
+	moveZ.button3D(".button1",".state1",".state2",0.3);
+	moveZ.button3D(".button2",".state1",".state2",0.3);
 
 	//设置每一屏中img的百分比
 
-	miaov.imgWidth($(".scene images"));
+	moveZ.imgWidth($(".scene images"));
 
-	miaov.configTimeScroll(); //配置横屏切换的动画
+	moveZ.configTimeScroll(); //配置横屏切换的动画
 
 	twoAnimate.init(); //执行第二屏里面的动画
 	threeAnimate.init();//执行第三屏里面的动画
 	fiveAnimate.init(); //执行第三五屏里面的动画
 }
 
-$(document).ready( miaov.init );
+$(document).ready( moveZ.init );
 
 //配置事件
-miaov.events = function(){
+moveZ.events = function(){
 	
 
-	miaov.nav(); //执行导航条的鼠标移入移除的动画
+	moveZ.nav(); //执行导航条的鼠标移入移除的动画
 
 	$(window).bind("scroll",scrollFn);
 
@@ -41,7 +41,7 @@ miaov.events = function(){
 		$(window).scrollTop(0);
 	}
 	//在滚动条滚动的过程中，计算页面中应该到哪一个时间点上去
-	$(window).bind("scroll",miaov.scrollStatus);
+	$(window).bind("scroll",moveZ.scrollStatus);
 
 	//当mousedown的时候，解除scroll事件对应的scrollFn
 
@@ -51,7 +51,7 @@ miaov.events = function(){
 
 	//当mouseup的时候，让当前这一屏到达某个状态
 
-	$(window).bind("mouseup",miaov.mouseupFn)
+	$(window).bind("mouseup",moveZ.mouseupFn)
 
 	//干掉浏览器默认的滚动行为
 
@@ -66,10 +66,10 @@ miaov.events = function(){
 		$(window).unbind("scroll",scrollFn);
 		if( direction<1 ){  //向下滚动
 			//console.log("next");
-			miaov.changeStep("next");
+			moveZ.changeStep("next");
 		}else{  //向上滚动
 			console.log("prev");
-			miaov.changeStep("prev");
+			moveZ.changeStep("prev");
 		};
 		clearTimeout(timer);
 		timer = setTimeout(function(){
@@ -80,24 +80,24 @@ miaov.events = function(){
 		},1200)
 	}
 
-	$(window).resize( miaov.resize );
+	$(window).resize( moveZ.resize );
 
 
 };
 //当mouseup的时候，让当前这一屏到达某个状态
-miaov.mouseupFn = function(){
+moveZ.mouseupFn = function(){
 	//在滚动过程中计算出一个比例
-	var scale = miaov.scale();
+	var scale = moveZ.scale();
 	//得到当前页面到达的某个时间点
-	var times = scale * miaov.timeScroll.totalDuration();
+	var times = scale * moveZ.timeScroll.totalDuration();
 
 	//获取到上一个状态和下一个状态
-	var prevStep = miaov.timeScroll.getLabelBefore(times);
-	var nextStep = miaov.timeScroll.getLabelAfter(times);
+	var prevStep = moveZ.timeScroll.getLabelBefore(times);
+	var nextStep = moveZ.timeScroll.getLabelAfter(times);
 
 	//获取到上一个状态的时间和下一个状态的时间
-	var prevTime = miaov.timeScroll.getLabelTime(prevStep);
-	var nextTime = miaov.timeScroll.getLabelTime(nextStep);
+	var prevTime = moveZ.timeScroll.getLabelTime(prevStep);
+	var nextTime = moveZ.timeScroll.getLabelTime(nextStep);
 
 	//计算差值
 	var prevDvalue = Math.abs( prevTime - times );
@@ -124,29 +124,28 @@ miaov.mouseupFn = function(){
 		step = nextStep;
 	};
 
-	miaov.timeScroll.tweenTo(step);
-	//-----------------当松开鼠标时候，控制滚动条到达某个状态计算出的距离-----------------------
+	moveZ.timeScroll.tweenTo(step);
 	//获取动画的总时长
-	var totalTime = miaov.timeScroll.totalDuration();
+	var totalTime = moveZ.timeScroll.totalDuration();
 	//获取到要到达的状态的时间
-	var afterTime = miaov.timeScroll.getLabelTime(step);
+	var afterTime = moveZ.timeScroll.getLabelTime(step);
 	//获取到滚动条能够滚动的最大的高度
 	var maxH = $("body").height() - $(window).height();
 	//计算出滚动条滚动的距离
 	var positionY = afterTime/totalTime * maxH;
 	//滚动条滚动的距离的持续时间
-	var d = Math.abs( miaov.timeScroll.time() - afterTime );
+	var d = Math.abs( moveZ.timeScroll.time() - afterTime );
 
 	var scrollAnimate = new TimelineMax();
 
 	scrollAnimate.to("html,body",d,{scrollTop:positionY});
 
-	miaov.currentStep = step;
+	moveZ.currentStep = step;
 }
 
 //计算滚动条在滚动过程中的一个比例
 
-miaov.scale = function(){
+moveZ.scale = function(){
 	var scrollT = $(window).scrollTop();
 	var MaxH = $("body").height() - $(window).height();
 	var s = scrollT/MaxH;
@@ -154,36 +153,36 @@ miaov.scale = function(){
 }
 
 //在滚动条滚动的过程中，计算页面中应该到哪一个时间点上去
-miaov.scrollStatus = function (){
-	var times = miaov.scale() * miaov.timeScroll.totalDuration();
+moveZ.scrollStatus = function (){
+	var times = moveZ.scale() * moveZ.timeScroll.totalDuration();
 	//当滚动条在滚动的过程中，让页面中的动画到打某个时间点
-	miaov.timeScroll.seek(times,false);
+	moveZ.timeScroll.seek(times,false);
 }
 
 //切换整屏并且计算滚动条的距离
 
-miaov.changeStep = function(value){
+moveZ.changeStep = function(value){
 	if( value === "next" ){ //向下切换
 
 		//获取当前的时间
-		var currentTime = miaov.timeScroll.getLabelTime(miaov.currentStep);
+		var currentTime = moveZ.timeScroll.getLabelTime(moveZ.currentStep);
 
 		//获取到下一个状态的字符串
-		var afterStep = miaov.timeScroll.getLabelAfter(currentTime);
+		var afterStep = moveZ.timeScroll.getLabelAfter(currentTime);
 
 		if( !afterStep ) return;
 
 		//获取动画的总时长
-		var totalTime = miaov.timeScroll.totalDuration();
+		var totalTime = moveZ.timeScroll.totalDuration();
 		//获取到下一个状态的时间
-		var afterTime = miaov.timeScroll.getLabelTime(afterStep);
+		var afterTime = moveZ.timeScroll.getLabelTime(afterStep);
 		//获取到滚动条能够滚动的最大的高度
 		var maxH = $("body").height() - $(window).height();
 
 		//计算出滚动条滚动的距离
 		var positionY = afterTime/totalTime * maxH;
 		//滚动条滚动的距离的持续时间
-		var d = Math.abs( miaov.timeScroll.time() - afterTime );
+		var d = Math.abs( moveZ.timeScroll.time() - afterTime );
 
 		var scrollAnimate = new TimelineMax();
 
@@ -191,31 +190,31 @@ miaov.changeStep = function(value){
 
 		//运动到下一个状态
 
-		//miaov.timeScroll.tweenTo(afterStep);
+		//moveZ.timeScroll.tweenTo(afterStep);
 		//记录当前的状态为下一个状态，方便继续切换到下一个状态上
-		miaov.currentStep = afterStep;
+		moveZ.currentStep = afterStep;
 
 	}else{ //向上切换
 
 		//获取当前的时间
-		var currentTime = miaov.timeScroll.getLabelTime(miaov.currentStep);
+		var currentTime = moveZ.timeScroll.getLabelTime(moveZ.currentStep);
 
 		//获取到上一个状态的字符串
-		var beforeStep = miaov.timeScroll.getLabelBefore(currentTime);
+		var beforeStep = moveZ.timeScroll.getLabelBefore(currentTime);
 
 		if( !beforeStep ) return;
 
 		//获取动画的总时长
-		var totalTime = miaov.timeScroll.totalDuration();
+		var totalTime = moveZ.timeScroll.totalDuration();
 		//获取到下一个状态的时间
-		var BeforeTime = miaov.timeScroll.getLabelTime(beforeStep);
+		var BeforeTime = moveZ.timeScroll.getLabelTime(beforeStep);
 		//获取到滚动条能够滚动的最大的高度
 		var maxH = $("body").height() - $(window).height();
 
 		//计算出滚动条滚动的距离
 		var positionY = BeforeTime/totalTime * maxH;
 		//滚动条滚动的距离的持续时间
-		var d = Math.abs( miaov.timeScroll.time() - BeforeTime );
+		var d = Math.abs( moveZ.timeScroll.time() - BeforeTime );
 
 		var scrollAnimate = new TimelineMax();
 
@@ -223,98 +222,98 @@ miaov.changeStep = function(value){
 
 		//运动到上一个状态
 
-		//miaov.timeScroll.tweenTo(beforeStep);
+		//moveZ.timeScroll.tweenTo(beforeStep);
 		//记录当前的状态为上一个状态，方便继续切换到上一个状态上
-		miaov.currentStep = beforeStep;
+		moveZ.currentStep = beforeStep;
 	}
 }
 
 //配置整屏切换的动画以及每一屏中的小动画
 
-miaov.configTimeScroll = function(){
+moveZ.configTimeScroll = function(){
 
-	var time = miaov.timeScroll ? miaov.timeScroll.time() : 0;
+	var time = moveZ.timeScroll ? moveZ.timeScroll.time() : 0;
 
-	if( miaov.timeScroll ) miaov.timeScroll.clear();
+	if( moveZ.timeScroll ) moveZ.timeScroll.clear();
 
-	miaov.timeScroll = new TimelineMax();
+	moveZ.timeScroll = new TimelineMax();
 
 		// 当从第二屏切换到第一屏的时候，让第二屏里面的动画时间点重归0
-		miaov.timeScroll.to(".scene1",0,{onReverseComplete:function(){
+		moveZ.timeScroll.to(".scene1",0,{onReverseComplete:function(){
 			twoAnimate.timeline.seek(0,false);
 		}},0);
 
-		miaov.timeScroll.to(".footer",0,{top:"100%"});
+		moveZ.timeScroll.to(".footer",0,{top:"100%"});
 
-		miaov.timeScroll.add("step1");
+		moveZ.timeScroll.add("step1");
 
-	miaov.timeScroll.to(".scene2",0.8,{top:0,ease:Cubic.easeInOut,onReverseComplete:function(){
+	moveZ.timeScroll.to(".scene2",0.8,{top:0,ease:Cubic.easeInOut,onReverseComplete:function(){
 			threeAnimate.timeline.seek(0,false);
 		}});
-	miaov.timeScroll.to({},0.1,{onComplete:function(){
+	moveZ.timeScroll.to({},0.1,{onComplete:function(){
 			menu.changeMenu("menu_state2");  //切换到第二屏调用的函数，同时传入导航条背景颜色变化的class名字
 		},onReverseComplete:function(){
 			menu.changeMenu("menu_state1");
 		}},"-=0.2");
-	miaov.timeScroll.to({},0.1,{onComplete:function(){
+	moveZ.timeScroll.to({},0.1,{onComplete:function(){
 			threeAnimate.timeline.tweenTo("threeSate1");
 		}},"-=0.2");
 
-	miaov.timeScroll.add("step2");
+	moveZ.timeScroll.add("step2");
 
 	// --- 主动画中配置第二萍的小动画 end
 
 
-	miaov.timeScroll.to(".scene3",0.8,{top:0,ease:Cubic.easeInOut,onReverseComplete:function(){
+	moveZ.timeScroll.to(".scene3",0.8,{top:0,ease:Cubic.easeInOut,onReverseComplete:function(){
 		threeAnimate.timeline.seek(0,false);
 	}});
-	miaov.timeScroll.to({},0.1,{onComplete:function(){
+	moveZ.timeScroll.to({},0.1,{onComplete:function(){
 		menu.changeMenu("menu_state3");  //切换到第二屏调用的函数，同时传入导航条背景颜色变化的class名字
 	},onReverseComplete:function(){
 		menu.changeMenu("menu_state2");
 	}},"-=0.2");
-	miaov.timeScroll.to({},0.1,{onComplete:function(){
+	moveZ.timeScroll.to({},0.1,{onComplete:function(){
 		threeAnimate.timeline.tweenTo("threeSate1");
 	}},"-=0.2");
-		miaov.timeScroll.add("step3");
+		moveZ.timeScroll.add("step3");
 
 	var Pop = document.getElementById("popup");
 	var Dele = document.getElementById("dele");
 
 
 
-	miaov.timeScroll.to(".scene4",0.8,{top:0,ease:Cubic.easeInOut});
-		miaov.timeScroll.add("step4");
+	moveZ.timeScroll.to(".scene4",0.8,{top:0,ease:Cubic.easeInOut});
+		moveZ.timeScroll.add("step4");
 
 	//滚动到第五屏的时候，要让第四屏滚出屏幕外
-	miaov.timeScroll.to(".scene4",0.8,{top:0,ease:Cubic.easeInOut});
+	moveZ.timeScroll.to(".scene4",0.8,{top:0,ease:Cubic.easeInOut});
 	//当可视区域大于950，那么就让导航条隐藏起来
 	if($(window).width()>950){
-		miaov.timeScroll.to(".menu_wrapper",0.8,{top:-110,ease:Cubic.easeInOut},"-=0.8");
+		moveZ.timeScroll.to(".menu_wrapper",0.8,{top:-110,ease:Cubic.easeInOut},"-=0.8");
 	}else{
 		$(".menu_wrapper").css("top",0);
 	}
 
-	miaov.timeScroll.to(".scene5",0.8,{top:0,ease:Cubic.easeInOut,onReverseComplete:function(){
+	moveZ.timeScroll.to(".scene5",0.8,{top:0,ease:Cubic.easeInOut,onReverseComplete:function(){
 		fiveAnimate.timeline.seek(0,false);
 	}},"-=0.8");
-	miaov.timeScroll.to({},0.1,{onComplete:function(){
+	moveZ.timeScroll.to({},0.1,{onComplete:function(){
 		fiveAnimate.timeline.tweenTo("fiveState");
 	}},"-=0.2");
-		miaov.timeScroll.add("step5");
+		moveZ.timeScroll.add("step5");
 
-	miaov.timeScroll.to(".scene5",0.5,{top:-$(".footer").height(),ease:Cubic.easeInOut});
-	miaov.timeScroll.to(".footer",0.5,{top:$(window).height()-$(".footer").height(),ease:Cubic.easeInOut},"-=0.5");
+	moveZ.timeScroll.to(".scene5",0.5,{top:-$(".footer").height(),ease:Cubic.easeInOut});
+	moveZ.timeScroll.to(".footer",0.5,{top:$(window).height()-$(".footer").height(),ease:Cubic.easeInOut},"-=0.5");
 
-		miaov.timeScroll.add("footer");
+		moveZ.timeScroll.add("footer");
 
-	miaov.timeScroll.stop();
+	moveZ.timeScroll.stop();
 	//当改变浏览器的大小时，让动画走到之前已经到达的时间点
-	miaov.timeScroll.seek(time);
+	moveZ.timeScroll.seek(time);
 }
 
 //配置导航条的动画
-miaov.configIntAnimate = function(){
+moveZ.configIntAnimate = function(){
 	var initAnimate = new TimelineMax();
 
 	initAnimate.to( ".menu",0.5,{opacity:1} );
@@ -334,7 +333,7 @@ miaov.configIntAnimate = function(){
 
 // 导航条中的动画
 
-miaov.nav = function(){
+moveZ.nav = function(){
 	var navAnimate = new TimelineMax();
 	$(".nav a").bind("mouseenter",function(){
 		var w = $(this).width();
@@ -377,7 +376,7 @@ miaov.nav = function(){
 };
 
 // 3D翻转效果
-miaov.button3D = function(obj,element1,element2,d){
+moveZ.button3D = function(obj,element1,element2,d){
 	var button3DAnimate = new TimelineMax();
 
 	button3DAnimate.to( $(obj).find(element1),0,{rotationX:0,transformPerspective:600,transformOrigin:"center bottom"} );
@@ -405,12 +404,12 @@ miaov.button3D = function(obj,element1,element2,d){
 }
 
 //设置每一屏的高度和top值
-miaov.resize = function(){
+moveZ.resize = function(){
 
 	$(".scene").height( $(window).height() )// 设置每一屏的height
 	$(".scene:not(':first')").css("top",$(window).height());
 
-	miaov.configTimeScroll();
+	moveZ.configTimeScroll();
 
 	if( $(window).width() <= 780 ){
 
@@ -447,7 +446,7 @@ miaov.resize = function(){
 
 //设置img的百分比
 
-miaov.imgWidth = function(elementImg){
+moveZ.imgWidth = function(elementImg){
 	elementImg.each(function(){
 		$(this).load(function(){
 			width = $(this).width();
@@ -584,8 +583,8 @@ menu.changeMenu = function( stateClass ){ //参数的作用：切换到某一屏
 
 	oldMenu.addClass("removeClass");
 	
-	miaov.nav();
-	miaov.button3D(".start",".state1",".state2",0.3);
+	moveZ.nav();
+	moveZ.button3D(".start",".state1",".state2",0.3);
 
 	var menuAnimate = new TimelineMax();
 	//如果可视区域大于950，才让导航条有一个3D翻转过程
