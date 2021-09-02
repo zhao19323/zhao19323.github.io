@@ -3175,7 +3175,7 @@ a.BACK-NEXT:visited{
 
 /*This style is made by @DailyCssDesign*/
 .page-items{padding:0;margin:0;list-style:none}
-.page-item{position:absolute;bottom:50;font-weight:700;font-size:16px}
+.page-item{position:absolute;bottom:50px;font-weight:700;font-size:16px}
 .page-item--previous{left:0}
 .page-item--next{right:0}
 .page-item__link{padding:50px 300px;display:block}
