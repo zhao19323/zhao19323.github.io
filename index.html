@@ -78,6 +78,8 @@
         .scene5 .contextLeft .left{ width: 16rem; border-bottom: 2px solid green; height: 5rem; border-right: 2px solid green; text-align: center; padding-top: 3rem;}
         .scene5 .contextLeft .right{width: 16rem;  height: 25.8rem; border-right: 2px solid green;}
         .scene5 .contextRight{position:absolute; width: 60rem; top:3rem; right: 0; padding: 1rem;}
+        .scene5 .content{position: relative; overflow: hidden; padding-top: 40%;}
+        .scene5 .content #ifrBall{position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;}
     </style>
 </head>
 
@@ -85,16 +87,6 @@
     <!-- 固定的导航部分 start-->
     <div class="menu_wrapper"></div>
     <!-- 固定的导航部分 end-->
-    <!-- 左侧导航 start -->
-    <div class="left_nav">
-        <div class="l_close"></div>
-        <img src="./images/scene1/logo_menu_mobile.png" class="l_logo" />
-        <a href="#" class="btn1 l_link">Start diagnosis for $100</a>
-        <a href="#" class="btn2 l_link">About</a>
-        <a href="#" class="btn3 l_link">The team</a>
-        <a href="#" class="btn4 l_link">Results</a>
-    </div>
-    <!-- 左侧导航 end -->
     <!-- 主体部分 start-->
     <div class="wrapper">
         <!-- 主体 第一块内容 start -->
@@ -440,7 +432,7 @@
                 </div>
                 <div class="right">
                     <iframe id="chatIfr" style="position: absolute; left: 75%; top:30%" src="detail/chat.html" loading="lazy" width="280" height="500" allowTransparency="true" frameborder="no" border="1" marginwidth="0" marginheight="0" scrolling="no" ></iframe>
-                    <iframe src="detail/matrix.html" loading="lazy" width="1300" height="610" allowTransparency="true" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" ></iframe>
+                    <iframe src="detail/matrix.html" loading="lazy" width="100%" height="1000" allowTransparency="true" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" ></iframe>
                 </div>
             </div>
         </div>
@@ -457,16 +449,17 @@
                         <div class="left">Articles of Organization</div>
                     </div>
                     <div class="contextRight">
-                        <div class="content">
+                        <div class="rightContent">
                             <p><b style="font-weight: bold">Level 1:</b> In a chat, when you post "Oh!" or " Oh my gosh!" to relieve the embarrassment of not knowing how to reply to the other party, you are already practicing the elementary "Perfunctorioloy".</p>
-                             <p><b style="font-weight: bold">Level 2:</b>When you can use various emoticons to speak instead of yourself, you have made progress;</p>
-                             <p><b style="font-weight: bold">Level 3:</b>when you can keep the other person talking to himself, congratulations, you have reached a higher stage.</p>
+                            <p><b style="font-weight: bold">Level 2:</b>When you can use various emoticons to speak instead of yourself, you have made progress;</p>
+                            <p><b style="font-weight: bold">Level 3:</b>when you can keep the other person talking to himself, congratulations, you have reached a higher stage.</p>
                         </div>
                     </div>
                 </div>
                 <div class="content">
-                    <iframe src="detail/ball.html" style="font-family: Kobe; color: #04d90d" loading="lazy" width="1300" height="510" allowTransparency="true" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" ></iframe>
+                    <iframe id="ifrBall" src="detail/ball.html" style="font-family: Kobe; color: #04d90d" loading="lazy" width="100%" allowTransparency="true" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" ></iframe>
                 </div>
+                <div></div>
             </div>
         </div>
         <!-- 主体 第五块内容 end -->
@@ -476,8 +469,8 @@
                 <div class="content">
                     <p class="font_latoblack" style="font-family:'Experimental Bm'; color: #d9d9d9;">DO YOU HAVE ANY DOUBTS?</p>
                     <p class="font_latoregular" style="font-family:'Kobe'; font-style: normal; color: #000;">Contact us at:</p>
-                    <p class="font_email" style="font-family:'Kobe'; color: #000;"><span style="letter-spacing: 0px;font-size: 20px;color: #000;">
-                    	<a style="color: #000;" href="">contact<span style="color: #000;">@</span>perfunctorioloy.com</a></span>
+                    <p class="font_email" style="font-family:'Kobe'; color: #000;"><span style="letter-spacing: 0px;font-size: 20px;color:#d9d9d9;">
+                    	<a style="color: #000;" href="">contact<span style="color: #d9d9d9;">@</span>perfunctorioloy.com</a></span>
                     </p>
                     <img style="position: absolute;right: 100px;top: 20px;margin-top:2rem;width: 10rem;" src="images/ma.png">
                     <iframe id="ifr" src="detail/hit1.html" loading="lazy" width="1300" height="200" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" ></iframe>
