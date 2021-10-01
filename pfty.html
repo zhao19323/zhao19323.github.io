@@ -4,6 +4,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     <link rel="stylesheet" href="./style/style.css">
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="./js/src/jquery-1.8.3.js"></script>
     <script src="./js/src/jquery.mousewheel.js"></script>
     <script src="./js/src/TweenMax.js"></script>
@@ -21,33 +24,33 @@
         }
     </style>
     <style>
-        .title{font-family:'Experimental Bm';font-size: 1.5rem;background-color:#d9d9d9; height: 2rem; border-bottom:2px solid green; color: black; padding: 1rem 0 0 1rem;}
+        .title{font-family:'Experimental Bm';font-size: 2.5rem;background-color:#d9d9d9; height: 5rem; border-bottom:2px solid green; color: black; padding: 1rem 0 0 1rem;}
     </style>
     <style>
         .scene1 .box{background: #d9d9d9;}
-        .scene1 .contextTop{font-size: 1rem;line-height: 1.5rem;font-family:'Kobe';}
-        .scene1 .contextTop .left{ float:left; width: 16rem; height: 83px; border-right: 2px solid green; text-align: center; padding-top: 3rem;}
-        .scene1 .contextTop .right{float: left; width: 75%; padding-left: 2rem; padding-top: 1.8%;}
-        .scene1 .contextTop{ width:100%;height:130px;border-bottom:2px solid green;}
+        .scene1 .contextTop{font-size: 2rem;line-height: 3rem;font-family:'Kobe';}
+        .scene1 .contextTop .left{ float:left; width: 16rem; height: 150px; border-right: 2px solid green; text-align: center; padding-top: 3rem;}
+        .scene1 .contextTop .right{float: left; width: 85%; padding-left: 2rem; padding-top: 1%;}
+        .scene1 .contextTop{ width:100%;height:150px;border-bottom:2px solid green;}
         .scene1 .contextBot .textW{padding: 1rem 2rem 0 2rem; font-size: 4rem;}
         .scene1 .contextBot{height: 474px;}
-        .scene1 .contextBot .ball .text{font-size: 1rem;line-height: 1.5rem;font-family:'Kobe';float:left; width: 20rem; margin-top: 2rem; height: 10rem; display: block; padding-left:2rem ;}
+        .scene1 .contextBot .ball .text{font-size: 2rem;line-height: 2rem;font-family:'Kobe';float:left; width: 20rem; margin-top: 2rem; height: 10rem; display: block; padding-left:2rem ;}
         .scene1 .contextBot .ball .canvas{float: right;}
     </style>
     <style>
         .scene2 .box{background: #d9d9d9;}
         .scene2 .contextTop{ width:100%;}
-        .scene2 .contextLeft{width: 17rem;border-bottom: 2px solid green; }
-        .scene2 .contextLeft .left{ border-bottom: 2px solid green; height: 5rem; border-right: 2px solid green; text-align: center; padding-top: 3rem;}
-        .scene2 .contextLeft .right{  height: 25.8rem; border-right: 2px solid green;}
-        .scene2 .contextRight{position:absolute; top:3rem; left: 22%; padding: 1rem;}
+        .scene2 .contextLeft{width: 25rem;border-bottom: 2px solid green; }
+        .scene2 .contextLeft .left{ border-bottom: 2px solid green; height: 8rem; border-right: 2px solid green; text-align: center; padding-top: 3rem;}
+        .scene2 .contextLeft .right{  height: 37rem; border-right: 2px solid green;}
+        .scene2 .contextRight{position:absolute; top:6rem; left: 20%;}
     </style>
     <style>
         .scene3 .box{background: #d9d9d9;}
-        .scene3 .title{height: 2rem; border-bottom:2px solid green; color: black; padding: 1rem 0 0 1rem;}
-        .scene3 .contextTop .left{ float:left; width: 16rem; height: 5rem; border-right: 2px solid green; text-align: center; padding-top: 3rem;}
+        .scene3 .title{height: 5rem; border-bottom:2px solid green; color: black; padding: 1rem 0 0 1rem;}
+        .scene3 .contextTop .left{ float:left; width: 16rem; height: 10rem; border-right: 2px solid green; text-align: center; padding-top: 3rem;}
         .scene3 .contextTop .right{float: left; width: 50rem; padding-left: 2rem; padding-top: 2rem;}
-        .scene3 .contextTop{font-size: 1rem;line-height: 1.5rem;font-family:'Kobe'; width:100%;height:8rem;border-bottom:2px solid green;}
+        .scene3 .contextTop{font-size: 2rem;line-height: 2rem;font-family:'Kobe'; width:100%;height:10rem;border-bottom:2px solid green;}
         .scene3 .contextBot .textW{padding: 4rem 2rem 0 2rem; font-size: 4rem;}
         .scene3 .contextBot .ball .text{float:left; width: 20rem; margin-top: 2rem; height: 10rem; display: block; padding-left:2rem ;}
         .scene3 .contextBot .ball .canvas{float: right;}
@@ -57,28 +60,28 @@
             left: 85%;top: 38%;margin-left: -155px;margin-top: -72px;display: none;}
         .scene3 .BotRight #popup .pp {padding: 10px 10px 0 10px}
         .scene3 .BotRight #popup  p {padding: 0 10px 0 10px}
-        .scene3 .BotRight p {font-family: "Kobe";font-size: 1rem;}
+        .scene3 .BotRight p {font-family: "Kobe";font-size: 2rem;}
         .scene3 .BotRight span{position: absolute;top: 0;right: 0;width: 20px;height: 20px; /*background-color: #04d90d;*/
             background-color: #d9d9d9;text-align: center;cursor: pointer;}
     </style>
     <style>
         .scene4 .box{background: #d9d9d9;}
-        .scene4 .contextTop{border-bottom:2px solid green; height:130px; font-size: 1rem;line-height: 1.5rem;font-family:'Kobe'; width:100%;}
-        .scene4 .title{height: 2rem; border-bottom:2px solid green; color: black; padding: 1rem 0 0 1rem;}
+        .scene4 .contextTop{border-bottom:2px solid green; height:130px; font-size: 2rem;line-height: 1.5rem;font-family:'Kobe'; width:100%;}
+        .scene4 .title{height: 5rem; border-bottom:2px solid green; color: black; padding: 1rem 0 0 1rem;}
         .scene4 .contextLeft{float: left; height: 130px;border-right: 2px solid green;}
-        .scene4 .contextLeft .left{ width: 16rem; height: 5rem; text-align: center; padding-top: 3rem;}
+        .scene4 .contextLeft .left{ width: 16rem; height: 5rem; text-align: center; line-height: 3rem; padding-top: 3rem;}
         .scene4 .contextLeft .right{width: 16rem;  height: 25.8rem; border-right: 2px solid green;}
         .scene4 .contextRight{ float: left; width: 55rem; padding: 1rem;}
         .scene4 .contextRight .content{padding-top: 1rem;}
     </style>
     <style>
         .scene5 .box{background: #d9d9d9;}
-        .scene5 .contextTop{font-size: 1rem;line-height: 1.5rem;font-family:'Kobe'; width:100%;height:8rem;border-bottom:2px solid green;}
-        .scene5 .title{font-family:'Experimental Bm';font-size: 1.5rem;background-color:#d9d9d9; height: 2rem; border-bottom:2px solid green; color: black; padding: 1rem 0 0 1rem;}
+        .scene5 .contextTop{font-size: 2rem;line-height: 2rem;font-family:'Kobe'; width:100%;height:12rem;border-bottom:2px solid green;}
+        .scene5 .title{font-family:'Experimental Bm';font-size: 2rem;background-color:#d9d9d9; height: 5rem; border-bottom:2px solid green; color: black; padding: 1rem 0 0 1rem;}
         .scene5 .contextLeft{float: left;}
-        .scene5 .contextLeft .left{ width: 16rem; border-bottom: 2px solid green; height: 5rem; border-right: 2px solid green; text-align: center; padding-top: 3rem;}
+        .scene5 .contextLeft .left{ width: 16rem; border-bottom: 2px solid green; height: 12rem; border-right: 2px solid green; text-align: center; padding-top: 3rem;}
         .scene5 .contextLeft .right{width: 16rem;  height: 25.8rem; border-right: 2px solid green;}
-        .scene5 .contextRight{float: left; width: 50rem; padding: 0.5rem;}
+        .scene5 .contextRight{float: left; width: 100rem; padding: 0.5rem;}
         .scene5 .content{position: relative; overflow: hidden; padding-top: 40%;}
         .scene5 .content #ifrBall{position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;}
     </style>
@@ -105,9 +108,9 @@
                     </div>
                 </div>
                 <div class="contextBot">
-                    <p class="textW" style="font-family:'Experimental Bm'; font-size: 6rem;line-height: 7rem;">Welcome to the</p>
-                    <p class="textW" style="font-family:'Experimental Bm'; font-size: 6rem;line-height: 7rem;">world of</p>
-                    <p class="textW" style="font-family:'Experimental Bm'; font-size: 6rem;line-height: 7rem;">perfunctorioloy</p>
+                    <p class="textW" style="font-family:'Experimental Bm'; font-size: 10rem;line-height: 9rem;">Welcome to the</p>
+                    <p class="textW" style="font-family:'Experimental Bm'; font-size: 10rem;line-height: 9rem;">world of</p>
+                    <p class="textW" style="font-family:'Experimental Bm'; font-size: 10rem;line-height: 9rem;">perfunctorioloy</p>
                     <div class="ball clear">
                         <div class="text">
                             <p>created:05/28/2020</p>
@@ -159,7 +162,7 @@
                     <div class="logo1"></div>
                 </div>
                 <audio id="aud" src="audio/oh.mp3" style="position: absolute; top: 28%;left: 6%;"></audio>
-                <div class="contextTop clear" style="font-size: 1rem;line-height: 1.2rem;font-family:'Kobe';">
+                <div class="contextTop clear" style="font-size: 2rem;line-height: 2rem;font-family:'Kobe';">
                     <div class="contextLeft" id="manual">
                         <div class="left">Reference Manual</div>
                         <div class="right">
@@ -203,10 +206,8 @@
                             <p>if(Let the other person continue to say){alert(otherSayArray[Math.floor((Math.random()*otherSayArray.length))])}
                             </p>
                         </div>
-                        <div><p style="font-size: 8rem;line-height: 8rem;font-family:'Experimental Bm';">Please</p></div>
-                        <div><p style="font-size: 8rem;line-height: 8rem;font-family:'Experimental Bm';">use this</p></div>
-                        <div><p style="font-size: 8rem;line-height: 8rem;font-family:'Experimental Bm';">language</p></div>
                     </div>
+                    <div><p style="position:absolute; bottom:0; left: 25rem;font-size: 12rem;line-height: 12rem;font-family:'Experimental Bm';">Please use this language</p></div>
                 </div>
             </div>
             <script>
@@ -402,7 +403,7 @@
                         <div class="left">Interactive Communication</div>
                     </div>
                     <div class="contextRight">
-                        <div style="padding-top: 2rem;">This is a "NONGNONGZI" who speak their minds platform</div>
+                        <div style="line-height: 98px;">This is a "NONGNONGZI" who speak their minds platform</div>
                     </div>
                 </div>
                 <div class="right">
@@ -425,9 +426,9 @@
                     </div>
                     <div class="contextRight">
                         <div class="rightContent">
-                            <div class="clear"><b style="font-weight: bold; float: left;width: 4rem;height: 2rem;">Level 1:</b><p class="float: left">In a chat, when you post "Oh!" or " Oh my gosh!" to relieve the embarrassment of not knowing how to reply to the other party, you are already practicing the elementary "Perfunctorioloy".</p></div>
-                            <div class="clear"><b style="font-weight: bold; float: left;width: 4rem;height: 2rem;">Level 2:</b><p>When you can use various emoticons to speak instead of yourself, you have made progress;</p></div>
-                            <div class="clear"><b style="font-weight: bold; float: left;width: 4rem;height: 2rem;">Level 3:</b><p>when you can keep the other person talking to himself, congratulations, you have reached a higher stage.</p></div>
+                            <div class="clear"><b style="font-weight: bold; float: left;width: 8rem;height: 2rem;">Level 1:</b><p class="float: left">In a chat, when you post "Oh!" or " Oh my gosh!" to relieve the embarrassment of not knowing how to reply to the other party, you are already practicing the elementary "Perfunctorioloy".</p></div>
+                            <div class="clear"><b style="font-weight: bold; float: left;width: 8rem;height: 2rem;">Level 2:</b><p>When you can use various emoticons to speak instead of yourself, you have made progress;</p></div>
+                            <div class="clear"><b style="font-weight: bold; float: left;width: 8rem;height: 2rem;">Level 3:</b><p>when you can keep the other person talking to himself, congratulations, you have reached a higher stage.</p></div>
                         </div>
                     </div>
                 </div>
@@ -442,15 +443,15 @@
         <div class="footer" style="background-color: #218225;">
             <div class="principal" style="background-color: #218225;">
                 <div class="content">
-                    <p class="" style="font-family:'Experimental Bm'; font-size: 5rem; color: #d9d9d9;">DO YOU HAVE ANY</p>
-                    <p class="" style="font-family:'Experimental Bm'; font-size: 5rem; color: #d9d9d9;">DOUBTS?</p>
+                    <p class="" style="font-family:'Experimental Bm'; font-size: 8rem; color: #d9d9d9;">DO YOU HAVE ANY</p>
+                    <p class="" style="font-family:'Experimental Bm'; font-size: 8rem; color: #d9d9d9;">DOUBTS?</p>
                     <p class="" style="font-family:'Kobe'; font-style: normal; color: #d9d9d9;">Contact us at:</p>
                     <p class="" style="font-family:'Kobe'; color: #d9d9d9;">
                         <span style="letter-spacing: 0px;font-size: 20px;color:#d9d9d9;">
                     	    <a style="color: #d9d9d9;" href="">contact<span>@</span>perfunctorioloy.com</a>
                         </span>
                     </p>
-                    <img style="position: absolute;right: 100px;top: 20px;margin-top:2rem;width: 10rem;" src="images/chitu_qrcode.png">
+                    <img style="position: absolute;right: 100px;top: 20px;margin-top:2rem;width: 20rem;" src="images/chitu_qrcode.png">
                     <iframe id="ifr" src="detail/hit1.html" loading="lazy" width="1300" height="200" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" ></iframe>
                 </div>
             </div>
