@@ -109,12 +109,10 @@ document.addEventListener("touchstart",function(e){
 // 添加动画
 (function(){
     // iOS 13+
-    alert("Aaaaa")
-
     if ( window.DeviceOrientationEvent !== undefined && typeof window.DeviceOrientationEvent.requestPermission === 'function' ) {
-        alert("bbb")
+        alert(window.DeviceOrientationEvent.requestPermission)
 
-        DeviceOrientationEvent.requestPermission().then( function ( response ) {
+        window.DeviceOrientationEvent.requestPermission.then( function ( response ) {
             alert(response)
 
             if ( response == 'granted' ) {
