@@ -279,7 +279,6 @@ a.card-img-top span:hover{
 
 
 a.iconlink {
-  font-family: 'youriconfont';
   text-decoration:none;
   color: #666666; 
 }
@@ -934,7 +933,6 @@ a.BACK-NEXT:visited{
       /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 
       html {
-       font-family: sans-serif;
        -ms-text-size-adjust: 100%;
        -webkit-text-size-adjust: 100%;
      }
@@ -968,7 +966,6 @@ a.BACK-NEXT:visited{
      }
 
      body {
-       font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
        font-size: 14px;
        line-height: 1.42857;
      }
@@ -1647,7 +1644,6 @@ a.BACK-NEXT:visited{
      }
 
      .serif {
-       font-family: Georgia, serif;
      }
 
      a {
