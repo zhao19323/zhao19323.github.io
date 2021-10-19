@@ -115,7 +115,7 @@ document.addEventListener("touchstart",function(e){
         alert("bbb")
 
         window.DeviceOrientationEvent.requestPermission().then( function ( response ) {
-            alert("ccc")
+            alert(response)
 
             if ( response == 'granted' ) {
                 alert("dddd")
