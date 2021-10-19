@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>perfunctorioloy</title>
     <style id="style">
@@ -131,7 +131,56 @@ document.addEventListener("touchstart",function(e){
         ease: "easeBothStrong"
     });
 })();
+//用户授权
+function getPermission() {
+    if (
+        typeof DeviceMotionEvent !== "undefined" &&
+        typeof DeviceMotionEvent.requestPermission === "function"
+    ) {
+        DeviceMotionEvent.requestPermission()
+            .then(function (state) {
+                if ("granted" === state) {
+                    window.addEventListener("devicemotion", devicemotion, false);
+                } else {
+                    alert("apply permission state: " + state);
+                }
+            })
+            .catch(function (err) {
+                alert("error: " + err);
+            });
+    }
+}
 
+function devicemotion(eventData) {
+    var acceleration = eventData.accelerationIncludingGravity;
+    var curTime = new Date().getTime();
+    if (curTime - last_update > 10) {
+        var diffTime = curTime - last_update;
+        last_update = curTime;
+        x = acceleration.x;
+        y = acceleration.y;
+        z = acceleration.z;
+        var speed =
+            (Math.abs(x + y + z - last_x - last_y - last_z) / diffTime) * 10000;
+        if (speed > SHAKE_THRESHOLD) {
+            alert("你中奖啦！"); // Do something
+        }
+    }
+
+}
+(function(){
+    var SHAKE_THRESHOLD = 4000;
+    var last_update = 0;
+    var x,
+        y,
+        z,
+        last_x = 0,
+        last_y = 0,
+        last_z = 0;
+    if (window.DeviceMotionEvent) {
+        window.addEventListener("devicemotion", devicemotion, false);
+    }
+})()
 // 跟随陀螺仪一块旋转
 function toRotate(){
     var div = document.querySelector("#box3D");
