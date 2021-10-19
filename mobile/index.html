@@ -110,12 +110,8 @@ document.addEventListener("touchstart",function(e){
 (function(){
     // iOS 13+
     if ( window.DeviceOrientationEvent !== undefined && typeof window.DeviceOrientationEvent.requestPermission === 'function' ) {
-        var rep = window.DeviceOrientationEvent.requestPermission.response
         window.DeviceOrientationEvent.requestPermission.then(function ( response ) {
-
             if ( rep == 'granted' ) {
-                alert("dddd")
-
                 window.addEventListener( 'orientationchange', onScreenOrientationChangeEvent, false );
                 window.addEventListener( 'deviceorientation', onDeviceOrientationChangeEvent, false );
 
