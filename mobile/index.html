@@ -110,12 +110,10 @@ document.addEventListener("touchstart",function(e){
 (function(){
     // iOS 13+
     if ( window.DeviceOrientationEvent !== undefined && typeof window.DeviceOrientationEvent.requestPermission === 'function' ) {
-        alert(window.DeviceOrientationEvent.requestPermission)
+        var rep = window.DeviceOrientationEvent.requestPermission.response
+        window.DeviceOrientationEvent.requestPermission.then(function ( response ) {
 
-        window.DeviceOrientationEvent.requestPermission.then( function ( response ) {
-            alert(response)
-
-            if ( response == 'granted' ) {
+            if ( rep == 'granted' ) {
                 alert("dddd")
 
                 window.addEventListener( 'orientationchange', onScreenOrientationChangeEvent, false );
@@ -124,7 +122,7 @@ document.addEventListener("touchstart",function(e){
             }
 
         } ).catch( function ( error ) {
-            alert("eeee")
+            alert(error)
 
             console.error( 'Unable to use DeviceOrientation API:', error );
 
