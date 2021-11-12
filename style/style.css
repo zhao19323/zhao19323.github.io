@@ -25,7 +25,6 @@ i{font-style:normal;}
 .inner{width:1210px;margin:0 auto;}
 
 @font-face {
-    font-family: 'latoregular';
     src: url('./lato-reg-webfont-webfont.eot');
     src: url('./lato-reg-webfont-webfont.eot?#iefix') format('embedded-opentype'),
          url('./lato-reg-webfont-webfont.woff') format('woff'),
@@ -36,7 +35,6 @@ i{font-style:normal;}
 }
 
 @font-face {
-   font-family: 'latoblack';
      src: url('./lato-bla-webfont.eot');
      src: url('./lato-bla-webfont.eot?#iefix') format('embedded-opentype'),
           url('./lato-bla-webfont.woff') format('woff'),
@@ -47,7 +45,6 @@ i{font-style:normal;}
 }
 
 body{
-	font-family: 'latoregular';  /*设置此字体无效*/
 	font-size:14px;
     overflow-y:hidden;
 }
@@ -593,7 +590,6 @@ body{
     display: inline-block;
     color: #B8C3CC;
     text-shadow: 0px -10px 0px rgba(0,0,0, 0.1);
-    font-family: Georgia;
     font-size: 14px;
     font-style: italic;
     margin: 0px 0px;
@@ -789,7 +785,6 @@ body{
 .button2 .tex_small {
     font-size: 14px;
     font-style: italic;
-    font-family: Georgia;
     font-weight: normal;
     text-transform: capitalize;
     margin-bottom: 5px;
@@ -1007,8 +1002,3 @@ body{
     font-size: 14px  !important;
     letter-spacing: normal;
 }
-
-.font_latoregular{ font-family: 'latoregular'; }
-  
-
-   .font_latoblack{ font-family: 'latoblack'; }
