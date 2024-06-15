@@ -1,0 +1,22 @@
+let data = [
+    "images/1_01.png",
+    "images/1_02.png",
+    "images/1_03.png",
+    "images/1_04.png",
+    "images/1_05.png",
+    "images/1_06.png",
+    "images/1_07.png",
+    "images/1_08.png",
+    "images/1_09.png",
+    "images/1_10.png",
+    "images/1_11.png",
+    "images/1_12.png",
+    "images/1_13.png",
+    "images/1_14.png",
+    "images/1_15.png",
+    "images/1_16.png",
+    "images/1_17.png",
+    "images/1_18.png",
+    "images/1_19.png",
+    "images/1_20.png"
+]

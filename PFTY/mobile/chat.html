@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>perfunctorioloy</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../js/build/botui.min.css" />
+    <link rel="stylesheet" href="../js/build/botui-theme-default.css" />
+</head>
+<body>
+
+<div style="" class="botui-app-container" id="botui-app">
+    <bot-ui></bot-ui>
+</div>
+<div id="start"><p style="text-align: center; margin:0 auto;width: 35%; margin-top: 20%; font-family: Kobe;border: 1px solid #000">Start chatting with the members</p></div>
+<script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
+<script src="../js/build/botui.js"></script>
+<script>
+    var botui = new BotUI('botui-app'); // give it the id of container
+
+    botui.message.bot({ // show first message
+        delay: 200,
+        content: 'hello'
+    }).then(function () {
+        return botui.message.bot({ // second one
+            delay: 1000, // wait 1 sec.
+            content: 'I\'m really on cloud nine!'
+        });
+    }).then(function () {
+        return botui.action.button({ // let user do something
+            delay: 1000,
+            action: [
+                {
+                    text: 'Good',
+                    value: 'good'
+                },
+                {
+                    text: 'Really Good',
+                    value: 'really_good'
+                }
+            ]
+        });
+    }).then(function (res) {
+        return botui.message.bot({
+            delay: 1000,
+            content: 'Cool!'
+        });
+    });
+</script>
+<script>
+    window.onload = function (){
+        var start = document.getElementById("start");
+        start.ontouchend = function (){
+            window.location.href = "http://192.168.31.113/websocket/im.html";
+        }
+    }
+</script>
+</body>
+</html>

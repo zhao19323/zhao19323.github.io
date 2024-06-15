@@ -1,10 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="utf-8" />
+  <!-- keep the line below for OpenProcessing compatibility -->
+  <script src="js/openprocessing_sketch.js"></script>
+  <script src="js/p5/p5.js"></script>
+  <script src="js/p5/p5.sound.min.js"></script>
+  <script src="js/mySketch.js"></script>
+  <style>
+    @font-face {
+      font-family: Experimental Bm;
+      src: url(css/experimentalbm-regular.ttf)
+    }
+  </style>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+  </style>
 </head>
-<body>
-<h1>11111</h1>
+<body id="body">
+<div style="font-family:'Experimental Bm'; padding-top: 1rem; text-align: center; background-color: #ccc; font-size: 6rem;">Perfunctorioloy</div>
+<script>
+  (function() {
+    var int=self.setInterval(function(){
+      window.location.href = "pfty.html";
+      clearInterval(int);
+    },5000);
+  })();
+  window.onresize = function (){
+    document.location.reload();
+  }
+</script>
 </body>
 </html>

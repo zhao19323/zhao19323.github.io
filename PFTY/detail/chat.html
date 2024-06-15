@@ -1,0 +1,296 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>chat</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+  <style>
+    *{ margin:0; padding:0;}
+    body{font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self; background:#d9d9d9;}
+    li{ list-style:none;}
+    html{ overflow:hidden;}
+    #main{ width:640px; height:1008px; position:absolute; left:50%; top:0; margin-left:-320px; z-index:-1; transform-origin:top;}
+    #phone{ width:100%; height:100%; background:url(../img/phoneBg.jpg) no-repeat; position:absolute; top:0; left:0; z-index:10; overflow:hidden; transition:.5s;}
+    #phoneHead{ width:100%; position:absolute; top:50px;}
+    #phoneHead .phoneHeadName{ width:262px; height:115px;margin:0 auto;}
+    #phoneHead .phoneHeadText{ font-size:30px; color:white; text-align:center; letter-spacing:5px; margin-top:10px;}
+    #phoneBtn{ width:520px; height:360px; background:url(../img/phoneBtn.png) no-repeat; position:absolute; left:50%; margin-left:-260px; bottom:30px;}
+    #phoneBtn .phoneBtnArc{ width:170px; height:170px; border:3px #0F0 solid; border-radius:50%; position:absolute; left:358px; top:143px; animation:1s linear infinite phoneBtnArcMove; z-index:-1;}
+    @keyframes phoneBtnArcMove{
+      0%{ transform:scale(1.2);}
+      100%{ transform:scale(0);}
+    }
+    #phoneBtn .phoneBtnTouch{ width:170px; height:170px; border-radius:50%; position:absolute; left:358px; top:143px; background:rgba(0,0,0,0); z-index:1;}
+    #phoneKey{ width:520px; height:659px; background:url(../img/phoneKey.png) no-repeat; position:absolute; left:50%; margin-left:-260px; bottom:30px; transform:translate(0,689px); transition:.5s;}
+    #phoneKey .phoneKeyTouch{ width:170px; height:170px; border-radius:50%; position:absolute; background:rgba(0,0,0,0); z-index:1; left:50%; margin-left:-85px; bottom:30px;}
+    #message{ width:100%; height:100%; position:absolute; left:0; top:0; z-index:8; background:#d9d9d9; transition:.5s; overflow:hidden;}
+    #messageList{ width:100%; position:absolute; top:20px; box-sizing:border-box; transition:.5s;}
+    #messageList li{ max-width:360px; padding:25px; line-height:40px; font-size:26px; clear:both; border-radius:10px; margin-bottom:40px; position:relative; opacity:0; transform:translate(0,100px); transition:.5s;}
+    #messageList li.sty1{ background:#ffffff; border:2px #cacaca solid; float:left; left:125px;}
+    #messageList li.sty2{ background:#a2e45c; border:2px #96b474 solid; float:right; right:125px;}
+    #messageList li img{ position:absolute; top:0;}
+    #messageList li.sty1 img{ left:-100px;}
+    #messageList li.sty2 img{ right:-100px;}
+    #messageList li .arrow{ width:10px; height:20px; position:absolute; top:20px;}
+  </style>
+  <script src="../js/src/jquery-1.8.3.js"></script>
+  <script>
+    $(function(){
+
+      var $main = $('#main');
+      var $phone = $('#phone');
+      var $message = $('#message');
+      var $messageList = $('#messageList');
+      var $messageText = $('#messageText');
+      var $cubeBox = $('#cubeBox');
+      var $cubeShare = $('#cubeShare');
+      var $cubeShareMark = $('#cubeShareMark');
+
+      var desH = 1008;
+      var desW = 640;
+      var viewHeight = $(window).height();
+      var viewWidth = $(window).width();
+
+      function init(){
+        $main.css('transform','scale('+( viewHeight/desH )+')');
+
+        var changeW = viewWidth/viewHeight * desH;
+
+        if(changeW > desW){
+          changeW = desW;
+        }
+
+        $messageList.css('padding','0 '+( (desW - changeW)/2 )+'px');
+        $messageText.css('transform','scale('+(changeW/desW)+')');
+        $cubeShare.css('marginRight',(desW - changeW)/2);
+      }
+
+      var phone = (function(){
+
+        function init(){
+          closePhone();
+        }
+
+        function closePhone(){
+          $phone.css('transform','translate(0,'+(desH)+'px)');
+          $phone.on('transitionEnd webkitTransitionEnd',function(){
+            $(this).remove();
+            message.init();
+          });
+        }
+
+
+        return {
+          init : init
+        }
+
+      })();
+
+      phone.init();
+
+      var message = (function(){
+
+        var $li = $messageList.find('li');
+        var iNow = 0;
+        var iT = 0;
+
+        function init(){
+          move();
+        }
+        function move(){
+          var timer = setInterval(function(){
+
+            $li.eq(iNow).css('opacity',1).css('transform','translate(0,0)');
+
+            if(iNow >= 3){
+              iT -= $li.eq(iNow).outerHeight() + 10;
+              $messageList.css('transform','translate(0,'+(iT)+'px)');
+            }
+
+            if(iNow == $li.length-1){
+              clearInterval(timer);
+              setTimeout(function(){
+                closeMessage();
+              },2000);
+            }
+            else{
+              iNow++;
+            }
+
+          },1000);
+
+        }
+
+        function closeMessage(){
+          $message.css('transform','translate(0,'+(desH)+'px)');
+          $message.on('transitionEnd webkitTransitionEnd',function(){
+            parent.document.getElementById("chatIfr").style.display='none';
+            $(this).remove();
+            cube.init();
+          });
+        }
+
+        return {
+          init : init
+        };
+      })();
+
+      var cube = (function(){
+        var $li = $cubeBox.find('li');
+        var downX = 0;
+        var downY = 0;
+        var startX = -45;
+        var startY = 45;
+        var step = 1/2;
+        var x = 0;
+        var y = 0;
+        var bBtn = true;
+
+        function init(){
+          $cubeBox.css('transform','scale(0.7) rotateX('+startX+'deg) rotateY('+startY+'deg)');
+          $cubeBox.css('transition','1s');
+          $cubeBox.on('transitionEnd webkitTransitionEnd',function(){
+            $cubeBox.css('transition','');
+          });
+          bind();
+        }
+        function bind(){
+
+          $(document).on('touchstart',function(ev){
+            var touch = ev.originalEvent.changedTouches[0];
+            downX = touch.pageX;
+            downY = touch.pageY;
+            bBtn = true;
+            $(document).on('touchmove.move',function(ev){
+              bBtn = false;
+              var touch = ev.originalEvent.changedTouches[0];
+
+              x = (downY - touch.pageY)*step;
+              y = (touch.pageX - downX)*step;
+
+              if( startX+x > 70 ){
+                x = -startX + 70;
+              }
+              else if( startX+x < -70 ){
+                x = -startX - 70;
+              }
+
+              $cubeBox.css('transform','scale(0.7) rotateX('+(startX+x)+'deg) rotateY('+(startY+y)+'deg)');
+
+            });
+            $(document).on('touchend.move',function(){
+              $(document).off('.move');
+            });
+          });
+
+          $li.on('touchend',function(){
+            if(bBtn){  //点击
+              //alert( $(this).index() );
+            }
+            else{  //拖拽
+              startX += x;
+              startY += y;
+            }
+          });
+
+          $cubeShare.on('touchstart',function(){
+            $cubeShareMark.show();
+          });
+          $cubeShareMark.on('touchstart',function(){
+            $(this).hide();
+          });
+        }
+        return {
+          init : init
+        };
+      })();
+      //cube.init();
+
+      init();
+
+    });
+  </script>
+</head>
+
+<body>
+<div id="main">
+  <div id="phone">
+    <div id="phoneHead">
+      <div class="phoneHeadName"></div>
+      <div class="phoneHeadText"></div>
+    </div>
+    <div id="phoneBtn">
+      <div class="phoneBtnArc"></div>
+      <div class="phoneBtnTouch"></div>
+    </div>
+    <div id="phoneKey">
+      <div class="phoneKeyTouch"></div>
+    </div>
+  </div>
+  <div id="message">
+    <ul id="messageList">
+      <li class="sty1">
+        <div class="arrow"></div>
+        <img src="">
+        Hello
+      </li>
+      <li class="sty2">
+        <div class="arrow"></div>
+        <img src="">
+        Hi
+      </li>
+      <li class="sty1">
+        <div class="arrow"></div>
+        <img src="">
+        I met happy thing today
+      </li>
+      <li class="sty2">
+        <div class="arrow"></div>
+        <img src="">
+        Really？
+      </li>
+      <li class="sty1">
+        <div class="arrow"></div>
+        <img src="">
+        Yes, I passed the examination today
+      </li>
+      <li class="sty2">
+        <div class="arrow"></div>
+        <img src="">
+        Couldn't believe it!
+      </li>
+      <li class="sty1">
+        <div class="arrow"></div>
+        <img src="">
+        And bought a skirt to reward myself
+      </li>
+      <li class="sty1">
+        <div class="arrow"></div>
+        <img src="">
+        What a happy day
+      </li>
+      <li class="sty1">
+        <div class="arrow"></div>
+        <img src="">
+        hello, are you still there？
+      </li>
+      <li class="sty2">
+        <div class="arrow"></div>
+        <img src="">
+        Oh my gosh!
+      </li>
+      <li class="sty2">
+        <div class="arrow"></div>
+        <img src="">
+        Amazing!
+      </li>
+      <li class="sty2">
+        <div class="arrow"></div>
+        <img src="">
+        Cool!
+      </li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

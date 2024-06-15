@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/src/jquery-1.8.3.js"></script>
+</head>
+<body>
+<canvas id="canvas1"></canvas>
+<script src="../assets/script/utils.js"></script>
+<script src="../assets/components/Ball.js"></script>
+<script>
+  const canvas = document.getElementById('canvas1');
+  const ctx = canvas.getContext('2d');
+
+  let W = canvas.width = 1000;
+  let H = canvas.height = 200;
+
+  let balls = [],bounce = -1, num = 2;
+
+  for(let i=0; i<num; i++){
+    balls.push(new Ball({
+      // x: Math.random() * W,
+      // y: Math.random() * H,
+      // r: Math.random() * 20 + 30,
+        // fillStyle: `rgb(${55 + ~~(Math.random() * 200)}, ${55 + ~~(Math.random() * 200)}, ${55 + ~~(Math.random() * 200)})`,
+      // vx: (Math.random() - 0.5) * 3,
+      // vy: (Math.random() - 0.5) * 3,
+        x: C.rp([0, W]),
+        y: C.rp([0, H]),
+        //fillStyle: C.createColor(),
+        vx: C.rp([-2, 2]),
+        vy: C.rp([-2, 2]),
+        m: C.rp([1, 5], true),
+        r: Math.random() > 0.9 ? C.rp([60, 40]) : C.rp([50, 40]),
+      id: `ball:` + i
+    }));
+  }
+
+  function ballMove(ball, index){
+    ball.x += ball.vx;
+    ball.y += ball.vy;
+
+      for(let j=index+1; j<num; j++){
+          C.checkBallHit(ball, balls[j]);
+      }
+
+      C.checkBallBounce(ball, W, H, bounce);
+
+    if(ball.x - ball.r >= W || ball.x + ball.r <= 0 ||
+            ball.y - ball.r >= H || ball.y + ball.r <= 0){
+      balls.splice(index, 1);
+      if(balls.length){
+        console.log(`${ball.id}这个小球被移除了!`);
+      }else{
+        console.log(`所有的小球都被移除了!`);
+        window.parent.$("#ifr").hide();
+
+      }
+    }
+
+    ball.render(ctx);
+  }
+
+  (function move(){
+    window.requestAnimationFrame(move);
+
+    ctx.clearRect(0, 0, W, H);
+
+    let i = balls.length;
+
+    while(i--){
+      ballMove(balls[i], i);
+    }
+  })();
+
+</script>
+</body>
+</html>

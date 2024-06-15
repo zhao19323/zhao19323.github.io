@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="./style/style.css">
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="./js/src/jquery-1.8.3.js"></script>
+    <script src="./js/src/jquery.mousewheel.js"></script>
+    <script src="./js/src/TweenMax.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="assets/script/utils.js"></script>
+    <script src="assets/components/Ball.js"></script>
+    <style>
+        @font-face {
+            font-family: Experimental Bm;
+            src: url(./css/experimentalbm-regular.ttf)
+        }
+        @font-face {
+            font-family: Kobe;
+            src: url(./css/Kobe-Regular.otf)
+        }
+    </style>
+    <style>
+        .title{font-family:'Experimental Bm';font-size: 2.5rem;background-color:#d9d9d9; height: 5rem; border-bottom:1px solid green; color: black; padding: 1rem 0 0 1rem;}
+    </style>
+    <style>
+        .scene1 .box{background: #d9d9d9;}
+        .scene1 .contextTop{font-size: 1.8rem;line-height: 3rem;font-family:'Kobe';overflow: hidden}
+        .scene1 .contextTop .left{ float:left; width: 25rem; height: 150px; border-right: 1px solid green; text-align: center; padding-top: 55px;}
+        .scene1 .contextTop .right{float: left; width: 78%; padding-left: 2rem; padding-top: 1%;}
+        .scene1 .contextTop{ width:100%;height:150px;border-bottom:1px solid green;}
+        .scene1 .contextBot .textW{padding: 1rem 2rem 0 2rem; font-size: 4rem;}
+        .scene1 .contextBot{height: 474px;}
+        .scene1 .contextBot .ball .text{font-size: 2rem;line-height: 2rem;font-family:'Kobe';float:left; width: 20rem; margin-top: 2rem; height: 10rem; display: block; padding-left:2rem ;}
+        .scene1 .contextBot .ball .canvas{float: right;}
+    </style>
+    <style>
+        .scene2 .box{background: #d9d9d9;}
+        .scene2 .contextTop{ width:100%; overflow: hidden;}
+        .scene2 .contextLeft{width: 25rem;border-bottom: 1px solid green; }
+        .scene2 .contextLeft .left{ border-bottom: 1px solid green; height: 8rem; border-right: 1px solid green; text-align: center; padding-top: 3rem;}
+        .scene2 .contextLeft .right{  height: 37rem; border-right: 1px solid green;}
+        .scene2 .contextRight{position:absolute; top:6rem; right:1%;padding-left: 26rem;}
+    </style>
+    <style>
+        .scene3 .box{background: #d9d9d9;}
+        .scene3 .title{height: 5rem; border-bottom:1px solid green; color: black; padding: 1rem 0 0 1rem;}
+        .scene3 .contextTop .left{ float:left; width: 25rem; height: 10rem; border-right: 1px solid green; text-align: center; padding-top: 3%;}
+        .scene3 .contextTop .right{float: left; width: 60rem; padding-left: 2rem; padding-top: 2%;}
+        .scene3 .contextTop{font-size: 1.8rem;line-height: 2rem;font-family:'Kobe'; overflow: hidden; width:100%;height:10rem;border-bottom:1px solid green;}
+        .scene3 .contextBot .textW{padding: 4rem 2rem 0 2rem; font-size: 4rem;}
+        .scene3 .contextBot .ball .text{float:left; width: 20rem; margin-top: 2rem; height: 10rem; display: block; padding-left:2rem ;}
+        .scene3 .contextBot .ball .canvas{float: right;}
+    </style>
+    <style>
+        .scene3 .BotRight #popup{width: 310px;background-color: #d9d9d9;  position: absolute;
+            left: 85%;top: 38%;margin-left: -155px;margin-top: -71px;display: none;}
+        .scene3 .BotRight #popup .pp {padding: 10px 10px 0 10px}
+        .scene3 .BotRight #popup  p {padding: 0 10px 0 10px}
+        .scene3 .BotRight p {font-family: "Kobe";font-size: 1.8rem;}
+        .scene3 .BotRight span{position: absolute;top: 0;right: 0;width: 20px;height: 20px; /*background-color: #04d90d;*/
+            background-color: #d9d9d9;text-align: center;cursor: pointer;}
+    </style>
+    <style>
+        .scene4 .box{background: #d9d9d9;}
+        .scene4 .contextTop{overflow:hidden;border-bottom:1px solid green; height:10rem; font-size: 1.8rem;line-height: 1.5rem;font-family:'Kobe'; width:100%;}
+        .scene4 .title{height: 5rem; border-bottom:1px solid green; color: black; padding: 1rem 0 0 1rem;}
+        .scene4 .contextLeft{float: left; height: 10rem;border-right: 1px solid green;}
+        .scene4 .contextLeft .left{ width: 25rem; height: 10rem; text-align: center; line-height: 2rem; padding-top: 4rem;}
+        .scene4 .contextLeft .right{width: 16rem;  height: 10rem; border-right: 1px solid green;}
+        .scene4 .contextRight{ float: left; width: 55rem; padding-left: 1rem;}
+        .scene4 .contextRight .content{padding-top: 1rem;}
+    </style>
+    <style>
+        .scene5 .box{background: #d9d9d9;}
+        .scene5 .contextTop{font-size: 1.8rem; overflow: hidden; line-height: 2rem;font-family:'Kobe'; width:100%;height:14rem;border-bottom:1px solid green;}
+        .scene5 .title{font-family:'Experimental Bm';font-size: 2rem;background-color:#d9d9d9; height: 5rem; border-bottom:1px solid green; color: black; padding: 1rem 0 0 1rem;}
+        .scene5 .contextLeft{float: left;}
+        .scene5 .contextLeft .left{ width: 25rem; border-bottom: 1px solid green; height: 14rem; border-right: 1px solid green; text-align: center; padding-top: 20%;}
+        .scene5 .contextLeft .right{width: 16rem;  height: 25.8rem; border-right: 1px solid green;}
+        .scene5 .contextRight{float: left; width: 66%; padding-top: 1%; padding-left: 1%;}
+        .scene5 .content{position: relative; overflow: hidden; padding-top: 40%;}
+        .scene5 .content #ifrBall{position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;}
+    </style>
+    <style>
+        .footer p{margin:0;}
+        .footer .principal {padding: 20px 20px;}
+    </style>
+</head>
+
+<body class="">
+    <!-- 固定的导航部分 start-->
+    <div class="menu_wrapper"></div>
+    <!-- 固定的导航部分 end-->
+    <!-- 主体部分 start-->
+    <div class="wrapper">
+        <!-- 主体 第一块内容 start -->
+        <div class="scene scene1">
+            <div class="box" style="height: 604px;">
+                <div class="title">
+                    <div>PFTY Association</div>
+                </div>
+                <div class="contextTop clear">
+                    <div class="left" style="">Organization Overview</div>
+                    <div class="right">
+                        <p>Life is short, everything can be perfunctory.</p>
+                        <p>The purpose of this association is to study together and communicate how to perfunctory invitations that cannot be avoided, such like
+                            those messages that you don't want to reply, people you don't want to communicate, and anything else about social.</p>
+                    </div>
+                </div>
+                <div class="contextBot">
+                    <p class="textW" style="font-family:'Experimental Bm'; font-size: 10rem;line-height: 9rem;">Welcome to the</p>
+                    <p class="textW" style="font-family:'Experimental Bm'; font-size: 10rem;line-height: 9rem;">world of</p>
+                    <p class="textW" style="font-family:'Experimental Bm'; font-size: 10rem;line-height: 9rem;">perfunctorioloy</p>
+                    <div class="ball clear">
+                        <div class="text">
+                            <p>created:05/28/2020</p>
+                        </div>
+                        <div class="canvas" style="padding-top: 0rem;"><canvas id="canvasScene1"></canvas></div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                const canvasScene1 = document.getElementById('canvasScene1');
+                const ctxScene1 = canvasScene1.getContext('2d');
+
+                let WScene1 = canvasScene1.width = 500;
+                let HScene1 = canvasScene1.height = 100;
+
+
+                const ball = new Ball({
+                    x: WScene1/2,
+                    y: HScene1/2,
+                    //fillStyle:'rgb(4, 217, 13)',
+                    r: 50,
+                }).render(ctxScene1);
+
+                let angleScene1 = 0;
+                const SWINGScene1 = 160; // 振幅
+
+                (function move(){
+                    window.requestAnimationFrame(move);
+
+                    ctxScene1.clearRect(0, 0, WScene1, HScene1);
+
+                    ball.x = WScene1/2 + Math.sin(angleScene1) * SWINGScene1;
+
+                    angleScene1 += 0.05;
+                    angleScene1 %= Math.PI * 2;
+
+                    ball.render(ctxScene1);
+                })();
+
+            </script>
+        </div>
+        <!-- 主体 第一块内容 end -->
+        <!-- 主体 第二块内容 start -->
+        <div class="scene scene2">
+            <div class="box" style="height: 604px;">
+                <div class="title">
+                    <div>PFTY Association</div>
+                    <div class="logo1"></div>
+                </div>
+                <audio id="aud" src="audio/oh.mp3" style="position: absolute; top: 28%;left: 6%;"></audio>
+                <div class="contextTop clear" style="font-size: 1.8rem;line-height: 1.6rem;font-family:'Kobe';">
+                    <div class="contextLeft" id="manual">
+                        <div class="left">Reference Manual</div>
+                        <div class="right">
+                            <canvas id="canvasScene2"></canvas>
+                        </div>
+                    </div>
+                    <div class="contextRight">
+                        <div class="content">
+                            <p>const surpriseArray = ["Oh!","Oh no!","Oh dear!","Goodness me!","Oh my gosh!",
+                                "Bloody hell!","That’s crazy!","Good luck!","Cool!"]</p>
+                            <p>if(Excited to express surprise){
+                                alert(surpriseArray[Math.floor((Math.random()*surpriseArray.length))])}
+                            </p>
+                            <p>const agreementArray = ["Oh I see.","Yeah that’s right.","You’re right.","Yeah that’s obvious.",
+                                "Oh absolutely.","I totally agree.","I couldn't agree more.","Now I understand.","That’s for sure."]</p>
+                            <p>if(Express agreement){
+                                alert(agreementArray[Math.floor((Math.random()*agreementArray.length))])}}
+                            </p>
+                            <p>const notBelieveArray = ["Really?","Seriously?",
+                                "No way. Is that real?",
+                                "Is it true?",
+                                "You not serious are you?",
+                                "How is it possible?",
+                                "Couldn't believe it!","That can't be real","Are you sure about that?",
+                                "You' ve got to be kidding me!"]</p>
+                            <p>if(Pretend not to believe){
+                                alert(notBelieveArray[Math.floor((Math.random()*notBelieveArray.length))])}
+                            </p>
+                            <p>const startTopicArray = ["How’s your day?","How’re you doing?"
+                                ,"What’s up mate?"
+                                ,"How’s everything going?"
+                                ,"What are you up to these days?"
+                                ,"What have you been doing?"]</p>
+                            <p>while(true){if(Let the other person start the topic){
+                                alert(startTopicArray[Math.floor((Math.random()*startTopicArray.length))])}
+                            </p>
+                            <p>const otherSayArray = ["What happened?","But why?",
+                                "What did he (she) say?",
+                                "What did he (she) do?",
+                                "How come?","Why is it?"]</p>
+                            <p>if(Let the other person continue to say){alert(otherSayArray[Math.floor((Math.random()*otherSayArray.length))])}
+                            </p>
+                        </div>
+                    </div>
+                    <div><p style="position:absolute; bottom:0; left: 25rem;font-size: 12rem;line-height: 12rem;font-family:'Experimental Bm';">Please use this language</p></div>
+                </div>
+            </div>
+            <script>
+                $("#canvasScene2").click(function(){
+                    document.getElementById("aud").play();
+                })
+            </script>
+            <script>
+                const canvasScene2 = document.getElementById('canvasScene2');
+                const ctxScene2 = canvasScene2.getContext('2d');
+
+                let WScene2 = canvasScene2.width = 250;
+                let HScene2 = canvasScene2.height = 300;
+
+
+                const ballScene2 = new Ball({
+                    x: WScene2/2,
+                    y: HScene2/2,
+                    r: 50
+                }).render(ctxScene2);
+
+                let angleScene2 = 0;
+                let initScaleScene2 = 1;
+
+                const SWINGScene2 = 1;
+
+                (function move(){
+                    window.requestAnimationFrame(move);
+
+                    ctxScene2.clearRect(0, 0, WScene2, HScene2);
+
+                    ballScene2.scaleX = ballScene2.scaleY = initScaleScene2 + Math.sin(angleScene2) * SWINGScene2;
+
+                    angleScene2 += 0.05;
+                    angleScene2 %= Math.PI * 2;
+
+
+                    ballScene2.render(ctxScene2);
+                    let img=new Image();
+                    img.src="images/voice.png";
+                    ctxScene2.drawImage(img,105,130,40,40);
+                })();
+
+            </script>
+        </div>
+        <!-- 主体 第二块内容 end -->
+        <!-- 主体 第三块内容 start -->
+        <div class="scene scene3">
+            <div class="box" style="height: 604px;">
+                <div class="title">
+                    <div>PFTY Association</div>
+                    <div class="logo1"></div>
+                </div>
+                <div class="contextTop clear">
+                    <div class="left">Membership Criteria</div>
+                    <div class="right">
+                        <p>No matter how you learn of this, when you start using it, you become a member of this association, and you spread it to allow more people to use.</p>
+                    </div>
+                </div>
+                <div class="contextBot">
+                    <div class="BotLeft" style="float:left;">
+                        <div class="canvas"><canvas id="canvasScene3"></canvas></div>
+                    </div>
+                    <div class="BotRight" style="float:right;width: 200px;">
+                        <div id="popup">
+                            <p class="pp">Membership Requirements</p>
+                            <p>1. The standard of 50 perfunctory words    every day.<p>
+                            <p>2. You must check in every day.<p>
+                            <p>3. Be active in the group.<p>
+                            <p>4. Members will try to spread it out.<p>
+                            <p style="padding-bottom: 10px;">5. Each person must produce more than one hundred lower-level members.</p>
+                            <span id="dele">X</span>
+                        </div>
+                        <script type="text/javascript">
+                            var Pop = document.getElementById("popup");
+                            var Dele = document.getElementById("dele");
+
+                            window.onload = function(){
+
+                                Pop.style.display = "block";
+
+                                Dele.onclick = function(){
+                                    Pop.style.display = "none";
+
+                                    setTimeout(function(){
+                                        Pop.style.display = "block";
+                                    },3000)
+                                }
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                const canvasScene3 = document.getElementById('canvasScene3');
+                const ctxScene3 = canvasScene3.getContext('2d');
+                let WScene3, HScene3;
+                let particlesScene3 = [], springScene3 = 0.0001;
+                window.onresize = function (){
+                    WScene3 = canvasScene3.width = window.innerWidth;
+                    HScene3 = canvasScene3.height = window.innerHeight ;
+                    createParticles(WScene3 * HScene3 / 15000);
+                };
+                window.onresize();
+                function createParticles(num){
+                    if(num !== particlesScene3.length){
+                        particlesScene3.length = 0;
+                    }
+                    for(let i=0; i<num; i++){
+                        let size = C.rp([50, 3]);
+                        particlesScene3.push(new Ball({
+                            x: C.rp([0, WScene3]),
+                            y: C.rp([0, HScene3]),
+                            vx: C.rp([-2, 2]),
+                            vy: C.rp([-2, 2]),
+                            r: size,
+                            m: size
+                        }));
+                    }
+                }
+                function move(p, i){
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    for(let j=i+1; j<particlesScene3.length; j++){
+                        let target = particlesScene3[j];
+                        checkSpring(p, target);
+                        C.checkBallHit(p, target);
+                    }
+
+                    if(p.x - p.r > WScene3){
+                        p.x = -p.r;
+                    }else if(p.x + p.r < 0){
+                        p.x = WScene3 + p.r;
+                    }
+                    if(p.y - p.r > HScene3){
+                        p.y = -p.r;
+                    }else if(p.y + p.r < 0){
+                        p.y = HScene3 + p.r;
+                    }
+                }
+                function checkSpring(current, target){
+                    let dx = target.x - current.x;
+                    let dy = target.y - current.y;
+                    let dist = Math.sqrt(dx**2 + dy**2);
+                    let minDist = WScene3 > HScene3 ? WScene3 / 10 : HScene3 / 5;
+                    if(dist < minDist){
+                        drawLine(current, target, dist, minDist);
+                        let ax = dx * springScene3;
+                        let ay = dy * springScene3;
+                        current.vx += ax / current.m;
+                        current.vy += ay / current.m;
+                        target.vx -= ax / target.m;
+                        target.vy -= ay / target.m;
+                    }
+                }
+                function drawLine(current, target, dist, minDist){
+                    ctxScene3.save();
+                    ctxScene3.lineWidth = 2 * Math.max(0, (1 - dist / minDist));
+                    ctxScene3.globalAlpha = Math.max(0, (1 - dist / minDist));
+                    ctxScene3.strokeStyle = 'rgb(57, 119, 34)';
+                    ctxScene3.beginPath();
+                    ctxScene3.lineTo(current.x, current.y);
+                    ctxScene3.lineTo(target.x, target.y);
+                    ctxScene3.stroke();
+                    ctxScene3.restore();
+                }
+                function draw(p){
+                    p.render(ctxScene3);
+                }
+                (function drawFrame(){
+                    window.requestAnimationFrame(drawFrame);
+                    ctxScene3.clearRect(0, 0, WScene3, HScene3);
+                    particlesScene3.forEach(move);
+                    particlesScene3.forEach(draw);
+                })();
+            </script>
+
+
+
+        </div>
+        <!-- 主体 第三块内容 end -->
+        <!-- 主体 第四块内容 start -->
+        <div class="scene scene4">
+            <div class="box" style="height: 604px;">
+                <div class="title">
+                    <div>PFTY Association</div>
+                    <div class="logo1"></div>
+                </div>
+                <div class="contextTop clear">
+                    <div class="contextLeft">
+                        <div class="left">Interactive Communication</div>
+                    </div>
+                    <div class="contextRight">
+                        <div style="line-height: 98px;">This is a "NONGNONGZI" who speak their minds platform</div>
+                    </div>
+                </div>
+                <div class="right">
+                    <iframe src="detail/matrix.html" loading="lazy" width="100%" height="1000" allowTransparency="true" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" ></iframe>
+                    <iframe id="chatIfr" style="position: absolute; left: 75%; top:30%" src="detail/chat.html" loading="lazy" width="280" height="500" allowTransparency="true" frameborder="no" border="1" marginwidth="0" marginheight="0" scrolling="no" ></iframe>
+                </div>
+            </div>
+        </div>
+        <!-- 主体 第四块内容 end -->
+        <!-- 主体 第五块内容 start -->
+        <div class="scene scene5">
+            <div class="box">
+                <div class="title">
+                    <div>PFTY Association</div>
+                    <div class="logo1"></div>
+                </div>
+                <div class="contextTop">
+                    <div class="contextLeft">
+                        <div class="left">Articles of Organization</div>
+                    </div>
+                    <div class="contextRight">
+                        <div class="rightContent">
+                            <div class="clear"><b style="font-weight: bold; float: left;width: 8rem;height: 3rem;">Level 1:</b><p class="margin:0;float: left">In a chat, when you post "Oh!" or " Oh my gosh!" to relieve the embarrassment of not knowing how to reply to the other party, you are already practicing the elementary "Perfunctorioloy".</p></div>
+                            <div class="clear"><b style="font-weight: bold; float: left;width: 8rem;height: 3rem;">Level 2:</b><p class="margin:0;">When you can use various emoticons to speak instead of yourself, you have made progress;</p></div>
+                            <div class="clear"><b style="font-weight: bold; float: left;width: 8rem;height: 3rem;">Level 3:</b><p class="margin:0;">when you can keep the other person talking to himself, congratulations, you have reached a higher stage.</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <iframe id="ifrBall" loading="lazy" src="detail/ball.html" style="font-family: Kobe; color: #04d90d" width="100%" allowTransparency="true" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" ></iframe>
+                </div>
+                <div></div>
+            </div>
+        </div>
+        <!-- 主体 第五块内容 end -->
+        <!-- footer部分 start -->
+        <div class="footer" style="background-color: #218225;">
+            <div class="principal" style="background-color: #218225;">
+                <div class="content">
+                    <p class="" style="font-family:'Experimental Bm'; font-size: 7rem; color: #d9d9d9;">DO YOU HAVE ANY</p>
+                    <p class="" style="font-family:'Experimental Bm'; font-size: 7rem; color: #d9d9d9;">DOUBTS?</p>
+                    <p class="" style="font-family:'Kobe'; font-style: normal; color: #d9d9d9;">Contact us at:</p>
+                    <p class="" style="font-family:'Kobe'; color: #d9d9d9;">
+                        <span style="letter-spacing: 0px;font-size: 20px;color:#d9d9d9;">
+                    	    <a style="color: #d9d9d9;" href="">contact<span>@</span>perfunctorioloy.com</a>
+                        </span>
+                    </p>
+                    <img style="position: absolute;right: 100px;top: 20px;margin-top:2rem;width: 20rem;" src="images/chitu_qrcode.png">
+                    <iframe id="ifr" src="detail/hit.html" loading="lazy" width="1300" height="200" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" ></iframe>
+                </div>
+            </div>
+        </div>
+        <!-- footer部分 end -->
+    </div>
+    <!-- 主体部分 end-->
+</body>
+
+</html>
