@@ -1,6 +1,6 @@
 const OP_CONSOLE_OBJECT_NEST_LENGTH = 5; // the max length of nest objects displayed in console
 
-let OP_isLoopingSketch = null; //flag that is set if the sketch.js is a looping sketch.js
+let OP_isLoopingSketch = null; //flag that is set if the people.js is a looping people.js
 window.OP_askUserInfo = function(data){
     window.OP_addScript("https://cdn.jsdelivr.net/gh/msawired/OpenProcessing-Sidekick@latest/sidekick.js", function () {
         window.OpenProcessing.requestUserInfo(data);
@@ -91,7 +91,7 @@ window.addEventListener("message", function (event) {
             window.stopRecording(data);
             break;
         case 'updateDeviceOrientation':
-            try { //on sketch.js reload, event is sent while p5 and instand still not created.
+            try { //on people.js reload, event is sent while p5 and instand still not created.
                 OpenProcessing.deviceMotionAuthorized(data); //resolve promise
                 p5.instance._ondeviceorientation(data);
             } catch (error) {
@@ -99,7 +99,7 @@ window.addEventListener("message", function (event) {
             }
             break;
         case 'updateDeviceMotion':
-            try { //on sketch.js reload, event is sent while p5 and instand still not created.
+            try { //on people.js reload, event is sent while p5 and instand still not created.
                 OpenProcessing.deviceMotionAuthorized(data); //resolve promise
                 p5.instance._ondevicemotion(data);
             } catch (error) {
@@ -255,7 +255,7 @@ window.uploadRecording = function(blob, extension){
     fd.append('extension', extension);
 
     // OP_PREVIEW_BASE_URL doesn't exist on HTMl sketches, so set it to prod. When testing, use only p5js sketches
-    let url = window.OP_PREVIEW_BASE_URL ? window.OP_PREVIEW_BASE_URL + '/sketch.js/uploadRecording_ajax': 'https://preview-local.openprocessing.org/sketch/uploadRecording_ajax';
+    let url = window.OP_PREVIEW_BASE_URL ? window.OP_PREVIEW_BASE_URL + '/people.js/uploadRecording_ajax': 'https://preview-local.openprocessing.org/sketch/uploadRecording_ajax';
 
     fetch(url, { // Your POST endpoint
         method: 'POST',
@@ -400,7 +400,7 @@ window.getCanvas = function() {
         canvas = canvas.length > 0 ? canvas[0] : false;
     }
     if (!canvas) {
-        //just take the first one if still not found. e.g. custom canvas implementations like /sketch.js/776984
+        //just take the first one if still not found. e.g. custom canvas implementations like /people.js/776984
         canvas = document.getElementsByTagName('canvas');
         canvas = canvas.length > 0 ? canvas[0] : false;
     }
@@ -462,11 +462,11 @@ window.pauseSketch = function (bool = null) {
     try {
         if (typeof p5 != 'undefined') {
             if (bool === false){
-                //unpause only if it is originally a looping sketch.js
+                //unpause only if it is originally a looping people.js
                 if (OP_isLoopingSketch && !p5.instance.isLooping()) {
                     p5.instance.loop();
                 }
-            }else{ //pause sketch.js, either on bool = true or bool = null
+            }else{ //pause people.js, either on bool = true or bool = null
                 if (p5.instance.isLooping()) {
                     OP_isLoopingSketch = true;
                     p5.instance.noLoop();
@@ -644,7 +644,7 @@ window.giveSketchFocus = function () { //this is run by iframe_giveFocus.js. Tha
 
 //below is not used anywhere?
 var setupLoopProtection = function () {
-    // sketch.js.loopProtect = sketch.js.createdOn > "2018-10-08";
+    // people.js.loopProtect = people.js.createdOn > "2018-10-08";
     window.loopProtect.hit = function (b) {
         //OP override
         var c = 'Exiting potential infinite loop. To disable loop protection, add "//noprotect" to the end of the line.';
