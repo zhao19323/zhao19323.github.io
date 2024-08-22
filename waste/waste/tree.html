@@ -42,13 +42,11 @@
 
 			scene = new THREE.Scene();
 
-			// Create renderer
 			renderer = new THREE.WebGLRenderer();
 			renderer.setPixelRatio( window.devicePixelRatio );
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
 
-			// Create camera (The volume renderer does not work very well with perspective yet)
 			const h = 512; // frustum height
 			const aspect = window.innerWidth / window.innerHeight;
 			camera = new THREE.OrthographicCamera( - h * aspect / 2, h * aspect / 2, h / 2, - h / 2, 1, 1000 );
@@ -64,19 +62,9 @@
 			controls.enablePan = false;
 			controls.update();
 
-			// scene.add( new AxesHelper( 128 ) );
-
-			// Lighting is baked into the shader a.t.m.
-			// let dirLight = new DirectionalLight( 0xffffff );
 
 			// The gui for interaction
 			volconfig = { clim1: 0.13, clim2: 0.47, renderstyle: 'mip', isothreshold: 0.15, colormap: 'viridis' };
-			// const gui = new GUI();
-			// gui.add( volconfig, 'clim1', 0, 1, 0.01 ).onChange( updateUniforms );
-			// gui.add( volconfig, 'clim2', 0, 1, 0.01 ).onChange( updateUniforms );
-			// gui.add( volconfig, 'colormap', { gray: 'gray', viridis: 'viridis' } ).onChange( updateUniforms );
-			// gui.add( volconfig, 'renderstyle', { mip: 'mip', iso: 'iso' } ).onChange( updateUniforms );
-			// gui.add( volconfig, 'isothreshold', 0, 1, 0.01 ).onChange( updateUniforms );
 
 			// Load the data ...
 			new NRRDLoader().load( 'models/nrrd/stent.nrrd', function ( volume ) {

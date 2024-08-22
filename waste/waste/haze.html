@@ -95,12 +95,7 @@
 				controls.minDistance = 50;
 				controls.maxDistance = 500;
 
-				//
 
-				//stats = new Stats();
-				//container.appendChild( stats.dom );
-
-				//
 
 				window.addEventListener( 'resize', onWindowResize );
 
@@ -251,30 +246,23 @@
 
 					clipPosition.applyMatrix4( camera.matrixWorldInverse ).applyMatrix4( camera.projectionMatrix );
 
-					// perspective divide (produce NDC space)
 
 					clipPosition.x /= clipPosition.w;
 					clipPosition.y /= clipPosition.w;
 
 					screenSpacePosition.x = ( clipPosition.x + 1 ) / 2; // transform from [-1,1] to [0,1]
 					screenSpacePosition.y = ( clipPosition.y + 1 ) / 2; // transform from [-1,1] to [0,1]
-					screenSpacePosition.z = clipPosition.z; // needs to stay in clip space for visibilty checks
+					screenSpacePosition.z = clipPosition.z;
 
-					// Give it to the god-ray and sun shaders
 
 					postprocessing.godrayGenUniforms[ 'vSunPositionScreenSpace' ].value.copy( screenSpacePosition );
 					postprocessing.godraysFakeSunUniforms[ 'vSunPositionScreenSpace' ].value.copy( screenSpacePosition );
 
-					// -- Draw sky and sun --
-
-					// Clear colors and depths, will clear to sky color
 
 					renderer.setRenderTarget( postprocessing.rtTextureColors );
 					renderer.clear( true, true, false );
 
-					// Sun render. Runs a shader that gives a brightness based on the screen
-					// space distance to the sun. Not very efficient, so i make a scissor
-					// rectangle around the suns position to avoid rendering surrounding pixels.
+
 
 					const sunsqH = 0.74 * window.innerHeight; // 0.74 depends on extent of sun from shader
 					const sunsqW = 0.74 * window.innerHeight; // both depend on height because sun is aspect-corrected
@@ -293,9 +281,6 @@
 
 					renderer.setScissorTest( false );
 
-					// -- Draw scene objects --
-
-					// Colors
 
 					scene.overrideMaterial = null;
 					renderer.setRenderTarget( postprocessing.rtTextureColors );
@@ -316,31 +301,20 @@
 					renderer.setRenderTarget( postprocessing.rtTextureDepthMask );
 					renderer.render( postprocessing.scene, postprocessing.camera );
 
-					// -- Render god-rays --
 
-					// Maximum length of god-rays (in texture space [0,1]X[0,1])
 
 					const filterLen = 1.0;
 
-					// Samples taken by filter
 
 					const TAPS_PER_PASS = 6.0;
 
-					// Pass order could equivalently be 3,2,1 (instead of 1,2,3), which
-					// would start with a small filter support and grow to large. however
-					// the large-to-small order produces less objectionable aliasing artifacts that
-					// appear as a glimmer along the length of the beams
 
-					// pass 1 - render into first ping-pong target
 					filterGodRays( postprocessing.rtTextureDepthMask.texture, postprocessing.rtTextureGodRays2, getStepSize( filterLen, TAPS_PER_PASS, 1.0 ) );
 
-					// pass 2 - render into second ping-pong target
 					filterGodRays( postprocessing.rtTextureGodRays2.texture, postprocessing.rtTextureGodRays1, getStepSize( filterLen, TAPS_PER_PASS, 2.0 ) );
 
-					// pass 3 - 1st RT
 					filterGodRays( postprocessing.rtTextureGodRays1.texture, postprocessing.rtTextureGodRays2, getStepSize( filterLen, TAPS_PER_PASS, 3.0 ) );
 
-					// final pass - composite god-rays onto colors
 
 					postprocessing.godrayCombineUniforms[ 'tColors' ].value = postprocessing.rtTextureColors.texture;
 					postprocessing.godrayCombineUniforms[ 'tGodRays' ].value = postprocessing.rtTextureGodRays2.texture;
